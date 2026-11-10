@@ -1,0 +1,196 @@
+/**
+ * CSS stylesheet for report_programreport.
+ *
+ * Implements sticky columns, responsive matrix scrolling, KPI cards, and print styles.
+ *
+ * @package     report_programreport
+ * @copyright   2026 Mohammad Nabil <mohammad@smartlearn.education>
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Header Card & Logo */
+.report-programreport-header-card {
+    border-radius: 12px;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+    border: 1px solid #e2e8f0 !important;
+}
+
+.report-programreport-header-card .report-logo-wrapper img {
+    max-height: 52px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* KPI Cards */
+.report-programreport-kpis .kpi-card {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #eef2f6 !important;
+}
+
+.report-programreport-kpis .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+.report-programreport-kpis .kpi-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report-programreport-kpis .bg-purple {
+    background-color: #6f42c1 !important;
+}
+
+.report-programreport-kpis .text-purple {
+    color: #6f42c1 !important;
+}
+
+/* Filter Bar */
+.report-programreport-filterbar {
+    border-radius: 10px;
+    border: 1px solid #eef2f6 !important;
+    background-color: #ffffff;
+}
+
+/* Matrix Table Container & Scrolling */
+.report-programreport-matrix-wrapper {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    overflow-x: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.report-programreport-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+}
+
+/* Sticky First Column (Student Details) */
+.report-programreport-table th.col-sticky-student,
+.report-programreport-table td.col-sticky-student {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background-color: #ffffff;
+    min-width: 220px;
+    max-width: 280px;
+    box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.08);
+}
+
+.report-programreport-table thead th.col-sticky-student {
+    z-index: 5;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #cbd5e1;
+}
+
+.report-programreport-table tfoot td.col-sticky-student {
+    z-index: 4;
+    background-color: #f1f5f9;
+}
+
+/* Course Column Headers */
+.report-programreport-table .course-col-header {
+    background-color: #f8fafc;
+    border-bottom: 2px solid #cbd5e1;
+}
+
+.report-programreport-table .course-link:hover {
+    color: #0d6efd !important;
+}
+
+.report-programreport-table .col-summary-header {
+    background-color: #f1f5f9;
+    border-bottom: 2px solid #cbd5e1;
+}
+
+/* Grade Cell Badges */
+.report-programreport-table .grade-badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 0.65rem;
+    border-radius: 50rem;
+    color: #ffffff !important;
+    display: inline-block;
+    min-width: 68px;
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.report-programreport-table .grade-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.report-programreport-table .grade-badge.badge-completed {
+    background-color: #28a745;
+}
+
+.report-programreport-table .grade-badge.badge-passed {
+    background-color: #17a2b8;
+}
+
+.report-programreport-table .grade-badge.badge-inprogress {
+    background-color: #ffc107;
+    color: #212529 !important;
+}
+
+.report-programreport-table .grade-badge.badge-failed {
+    background-color: #dc3545;
+}
+
+.report-programreport-table .grade-badge.badge-notenrolled {
+    background-color: #e9ecef;
+    color: #6c757d !important;
+    font-weight: normal;
+}
+
+/* Student Program Status Badges */
+.report-programreport-table .badge-completed {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.report-programreport-table .badge-inprogress {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.report-programreport-table .badge-notstarted {
+    background-color: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #d6d8db;
+}
+
+/* Table Footer / Summary Rows */
+.report-programreport-table tfoot tr.summary-footer-row td {
+    background-color: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.report-programreport-table tfoot tr.row-average td {
+    border-top: 2px solid #cbd5e1;
+}
+
+/* Print Styles */
+@media print {
+    .report-programreport-header-card .btn-group,
+    .report-programreport-header-card form,
+    .report-programreport-filterbar,
+    .pagination {
+        display: none !important;
+    }
+
+    .report-programreport-table th.col-sticky-student,
+    .report-programreport-table td.col-sticky-student {
+        position: static !important;
+        box-shadow: none !important;
+    }
+}

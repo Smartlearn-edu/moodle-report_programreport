@@ -55,20 +55,16 @@
                         </form>
 
                         {{#has_selected_program}}
-                        <div class="dropdown d-inline-block position-relative report-programreport-export-dropdown" id="exportDropdownWrapper">
+                        <div class="dropdown btn-group">
                             <button type="button"
-                                    class="btn btn-sm btn-outline-primary dropdown-toggle report-programreport-export-btn"
-                                    id="reportProgramExportBtn"
+                                    class="btn btn-sm btn-outline-primary dropdown-toggle"
                                     data-toggle="dropdown"
                                     data-bs-toggle="dropdown"
                                     aria-haspopup="true"
-                                    aria-expanded="false"
-                                    onclick="event.stopPropagation(); var m=document.getElementById('reportProgramExportMenu'); if(m){ var open=m.classList.toggle('show'); this.setAttribute('aria-expanded', open ? 'true' : 'false'); }">
+                                    aria-expanded="false">
                                 <i class="fa fa-download me-1"></i> {{#str}}export, report_programreport{{/str}}
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm report-programreport-export-menu"
-                                id="reportProgramExportMenu"
-                                aria-labelledby="reportProgramExportBtn">
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                 <li>
                                     <a class="dropdown-item py-2" href="{{{export_excel_url}}}">
                                         <i class="fa fa-file-excel-o text-success me-2"></i> {{#str}}export_excel, report_programreport{{/str}}
@@ -281,27 +277,3 @@
     {{/has_programs}}
 
 </div>
-
-{{#js}}
-document.addEventListener('click', function(e) {
-    var btn = document.getElementById('reportProgramExportBtn');
-    var menu = document.getElementById('reportProgramExportMenu');
-    if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.remove('show');
-        btn.setAttribute('aria-expanded', 'false');
-    }
-});
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        var btn = document.getElementById('reportProgramExportBtn');
-        var menu = document.getElementById('reportProgramExportMenu');
-        if (menu && menu.classList.contains('show')) {
-            menu.classList.remove('show');
-            if (btn) {
-                btn.setAttribute('aria-expanded', 'false');
-                btn.focus();
-            }
-        }
-    }
-});
-{{/js}}

@@ -179,34 +179,6 @@
     border-top: 2px solid #cbd5e1;
 }
 
-/* Export Dropdown Menu Positioning & Visibility */
-.report-programreport-export-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.report-programreport-export-dropdown .dropdown-menu {
-    min-width: 220px;
-    z-index: 1060;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
-}
-
-.report-programreport-export-dropdown .dropdown-menu.show {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: auto;
-    margin-top: 4px;
-}
-
-[dir="rtl"] .report-programreport-export-dropdown .dropdown-menu.show {
-    right: auto;
-    left: 0;
-}
-
 /* Print Styles */
 @media print {
     .report-programreport-header-card .btn-group,

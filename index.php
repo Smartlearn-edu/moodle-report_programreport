@@ -39,7 +39,7 @@ $page = optional_param('page', 0, PARAM_INT);
 $perpage = optional_param('perpage', 50, PARAM_INT);
 $search = optional_param('search', '', PARAM_TEXT);
 $statusfilter = optional_param('status', 'all', PARAM_ALPHA);
-$action = optional_param('action', '', PARAM_ALPHA);
+$action = optional_param('action', '', PARAM_ALPHANUMEXT);
 
 // Remember and restore last selected program preference.
 if (empty($programkey)) {
@@ -76,12 +76,15 @@ if (!empty($action) && !empty($programkey)) {
 
     switch ($action) {
         case 'export_excel':
+        case 'exportexcel':
             exporter::export_excel($builder);
             break;
         case 'export_csv':
+        case 'exportcsv':
             exporter::export_csv($builder);
             break;
         case 'export_pdf':
+        case 'exportpdf':
             exporter::export_pdf($builder);
             break;
     }

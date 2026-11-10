@@ -41,16 +41,18 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12 text-lg-end">
-                    <form method="get" action="{{{config.wwwroot}}}/report/programreport/index.php" class="d-inline-flex flex-wrap justify-content-lg-end align-items-center gap-2">
-                        <select name="program" class="form-select form-select-sm d-inline-block w-auto fw-semibold border-primary" onchange="this.form.submit()">
-                            <option value="">-- {{#str}}selectprogram, report_programreport{{/str}} --</option>
-                            {{#programs_options}}
-                            <option value="{{key}}" {{#is_selected}}selected{{/is_selected}}>{{fullname}}</option>
-                            {{/programs_options}}
-                        </select>
-                        <noscript>
-                            <button type="submit" class="btn btn-sm btn-primary">Go</button>
-                        </noscript>
+                    <div class="d-inline-flex flex-wrap justify-content-lg-end align-items-center gap-2">
+                        <form method="get" action="{{{config.wwwroot}}}/report/programreport/index.php" class="d-inline-block m-0">
+                            <select name="program" class="form-select form-select-sm d-inline-block w-auto fw-semibold border-primary" onchange="this.form.submit()">
+                                <option value="">-- {{#str}}selectprogram, report_programreport{{/str}} --</option>
+                                {{#programs_options}}
+                                <option value="{{key}}" {{#is_selected}}selected{{/is_selected}}>{{fullname}}</option>
+                                {{/programs_options}}
+                            </select>
+                            <noscript>
+                                <button type="submit" class="btn btn-sm btn-primary">Go</button>
+                            </noscript>
+                        </form>
 
                         {{#has_selected_program}}
                         <div class="btn-group">
@@ -77,7 +79,7 @@
                             </ul>
                         </div>
                         {{/has_selected_program}}
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

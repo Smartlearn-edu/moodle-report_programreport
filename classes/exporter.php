@@ -29,6 +29,7 @@ namespace report_programreport;
 defined('MOODLE_INTERNAL') || die();
 
 use stdClass;
+use core_text;
 
 /**
  * Exporter class for matrix report data.
@@ -48,12 +49,15 @@ class exporter {
 
         $proginfo = $builder->get_program_info();
         $progname = $proginfo ? $proginfo->fullname : get_string('pluginname', 'report_programreport');
-        $filename = clean_filename('program_report_' . $progname . '_' . date('Ymd_His') . '.xlsx');
+        $safeprogname = clean_filename(str_replace(' ', '_', $progname)) ?: 'program';
+        $filename = 'program_report_' . $safeprogname . '_' . date('Ymd_His') . '.xlsx';
 
         $workbook = new \MoodleExcelWorkbook('-');
         $workbook->send($filename);
 
-        $sheetname = clean_param(substr($progname, 0, 31), PARAM_ALPHANUMEXT) ?: 'Program Report';
+        $sheetname = get_string('pluginname', 'report_programreport');
+        $sheetname = strtr(trim($sheetname, "'"), '[]*/\?:', '       ');
+        $sheetname = core_text::substr($sheetname, 0, 31) ?: 'Program Report';
         $worksheet = $workbook->add_worksheet($sheetname);
 
         $colors = matrix_builder::get_color_settings();
@@ -208,6 +212,10 @@ class exporter {
         $worksheet->write_string($rowidx, $colidx++, '-', $fmtSummaryCenter);
         $worksheet->write_string($rowidx, $colidx++, '-', $fmtSummaryCenter);
 
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
         $workbook->close();
         exit;
     }
@@ -223,7 +231,8 @@ class exporter {
 
         $proginfo = $builder->get_program_info();
         $progname = $proginfo ? $proginfo->fullname : get_string('pluginname', 'report_programreport');
-        $filename = clean_filename('program_report_' . $progname . '_' . date('Ymd_His') . '.csv');
+        $safeprogname = clean_filename(str_replace(' ', '_', $progname)) ?: 'program';
+        $filename = 'program_report_' . $safeprogname . '_' . date('Ymd_His') . '.csv';
 
         while (ob_get_level()) {
             ob_end_clean();
@@ -331,7 +340,8 @@ class exporter {
 
         $proginfo = $builder->get_program_info();
         $progname = $proginfo ? $proginfo->fullname : get_string('pluginname', 'report_programreport');
-        $filename = clean_filename('program_report_' . $progname . '_' . date('Ymd_His') . '.pdf');
+        $safeprogname = clean_filename(str_replace(' ', '_', $progname)) ?: 'program';
+        $filename = 'program_report_' . $safeprogname . '_' . date('Ymd_His') . '.pdf';
 
         $kpis = $builder->get_kpi_metrics();
         $courses = $builder->get_courses();

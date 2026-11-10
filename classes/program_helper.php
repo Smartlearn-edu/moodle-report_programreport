@@ -99,6 +99,8 @@ class program_helper {
 
         $programs = [];
 
+        $syscontext = \context_system::instance();
+
         // 1. Open LMS Programs.
         if (self::has_enrol_programs()) {
             $records = $DB->get_records('enrol_programs_programs', ['archived' => 0], 'fullname ASC', 'id, fullname, idnumber');
@@ -108,7 +110,7 @@ class program_helper {
                     'key' => $key,
                     'source' => 'enrol_programs',
                     'id' => (int)$rec->id,
-                    'fullname' => format_string($rec->fullname, true, ['escape' => false]),
+                    'fullname' => format_string($rec->fullname, true, ['context' => $syscontext, 'escape' => false]),
                     'idnumber' => $rec->idnumber ?? '',
                 ];
             }
@@ -123,7 +125,7 @@ class program_helper {
                     'key' => $key,
                     'source' => 'tool_muprog',
                     'id' => (int)$rec->id,
-                    'fullname' => format_string($rec->fullname, true, ['escape' => false]),
+                    'fullname' => format_string($rec->fullname, true, ['context' => $syscontext, 'escape' => false]),
                     'idnumber' => $rec->idnumber ?? '',
                 ];
             }
@@ -371,11 +373,13 @@ class program_helper {
         $records = $DB->get_records_select('course', "id $insql", $inparams, '', 'id, fullname, shortname, idnumber');
 
         $ordered = [];
+        $syscontext = \context_system::instance();
         foreach ($courseids as $cid) {
             if (isset($records[$cid])) {
                 $c = $records[$cid];
-                $c->fullname = format_string($c->fullname, true, ['escape' => false]);
-                $c->shortname = format_string($c->shortname, true, ['escape' => false]);
+                $ccontext = \context_course::instance($cid, IGNORE_MISSING) ?: $syscontext;
+                $c->fullname = format_string($c->fullname, true, ['context' => $ccontext, 'escape' => false]);
+                $c->shortname = format_string($c->shortname, true, ['context' => $ccontext, 'escape' => false]);
                 $ordered[] = $c;
             }
         }
@@ -489,7 +493,8 @@ class program_helper {
             $params['search3'] = $searchlike;
         }
 
-        $fields = 'id, firstname, lastname, email, idnumber';
+        $namefields = \core_user\fields::for_name()->get_sql('', false, '', '', false)->selects;
+        $fields = "id, email, idnumber, $namefields";
         $order = 'lastname ASC, firstname ASC, id ASC';
         return $DB->get_records_select('user', $where, $params, $order, $fields);
     }
@@ -518,6 +523,8 @@ class program_helper {
             return null;
         }
 
+        $syscontext = \context_system::instance();
+
         if ($type === 'programs' && self::has_enrol_programs()) {
             $rec = $DB->get_record('enrol_programs_programs', ['id' => $id]);
             if ($rec) {
@@ -525,7 +532,7 @@ class program_helper {
                     'key' => $programkey,
                     'source' => 'enrol_programs',
                     'id' => $id,
-                    'fullname' => format_string($rec->fullname, true, ['escape' => false]),
+                    'fullname' => format_string($rec->fullname, true, ['context' => $syscontext, 'escape' => false]),
                     'idnumber' => $rec->idnumber ?? '',
                 ];
             }
@@ -536,7 +543,7 @@ class program_helper {
                     'key' => $programkey,
                     'source' => 'tool_muprog',
                     'id' => $id,
-                    'fullname' => format_string($rec->fullname, true, ['escape' => false]),
+                    'fullname' => format_string($rec->fullname, true, ['context' => $syscontext, 'escape' => false]),
                     'idnumber' => $rec->idnumber ?? '',
                 ];
             }

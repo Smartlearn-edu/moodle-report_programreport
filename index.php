@@ -34,6 +34,9 @@ require_login();
 $systemcontext = \context_system::instance();
 require_capability('report/programreport:view', $systemcontext);
 
+$PAGE->set_context($systemcontext);
+$PAGE->set_url('/report/programreport/index.php');
+
 $programkey = optional_param('program', '', PARAM_ALPHANUMEXT);
 $page = optional_param('page', 0, PARAM_INT);
 $perpage = optional_param('perpage', 50, PARAM_INT);

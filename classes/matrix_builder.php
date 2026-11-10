@@ -220,7 +220,8 @@ class matrix_builder {
         // -------------------------------------------------------------
         // Batch 4: Preload Active Course Enrolments
         // -------------------------------------------------------------
-        $enrolsql = "SELECT DISTINCT ue.userid, e.courseid
+        $concat = $DB->sql_concat('ue.userid', "'-'", 'e.courseid');
+        $enrolsql = "SELECT DISTINCT $concat AS ukey, ue.userid, e.courseid
                        FROM {user_enrolments} ue
                        JOIN {enrol} e ON e.id = ue.enrolid
                       WHERE ue.userid $uInSql AND e.courseid $cInSql AND ue.status = 0 AND e.status = 0";

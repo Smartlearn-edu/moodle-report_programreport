@@ -70,10 +70,13 @@ $string['completedcount'] = 'Completed Count';
 // Status labels & badges.
 $string['status_completed'] = 'Completed';
 $string['status_inprogress'] = 'In Progress';
+$string['status_in_progress'] = 'In Progress';
 $string['status_notstarted'] = 'Not Started';
+$string['status_not_started'] = 'Not Started';
 $string['status_passed'] = 'Passed';
 $string['status_failed'] = 'Failed';
 $string['status_notenrolled'] = 'Not Enrolled';
+$string['status_not_enrolled'] = 'Not Enrolled';
 
 // Exports.
 $string['export'] = 'Export';
